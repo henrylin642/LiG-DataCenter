@@ -120,6 +120,8 @@ def userdata_arrange(df):
 def upload(df,selected_db,uploaded_file):
     filename =  "data/" + df[df['db'] == selected_db]['filename'].values[0]
     st.write(filename)
+    df_test = pd.read_csv(filename)
+    st.write(df_test)
     if uploaded_file is not None:
         df_upload = pd.read_csv(uploaded_file, encoding="utf-8-sig")
         newfilename = uploaded_file.name
