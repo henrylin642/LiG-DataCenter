@@ -96,7 +96,7 @@ def userdata_arrange(df):
         rows.append(data_list)
         
     new_df = pd.DataFrame(rows)
-    st.write(new_df)
+
     new_df.columns = ['id', 'Email', 'Created_at']
 
     # 将 'Created_at' 列转换为日期时间格式
@@ -114,7 +114,7 @@ def userdata_arrange(df):
     
 def upload(df,selected_db,uploaded_file):
     filename =  "data/" + df[df['db'] == selected_db]['filename'].values[0]
-    st.write(filename)
+
     df_test = pd.read_csv(filename)
     st.write(df_test)
     if uploaded_file is not None:
