@@ -104,12 +104,6 @@ def userdata_arrange(df):
 
     # 将日期时间格式转换为一般的时间字符串格式
     new_df['Created_at'] = new_df['Created_at'].dt.strftime('%Y-%m-%d %H:%M')
-
-    # 将 'Created_at' 列转换为日期时间格式
-    new_df['Updated_at'] = pd.to_datetime(new_df['Updated_at'], format='%Y年%m月%d日 %H:%M')
-
-    # 将日期时间格式转换为一般的时间字符串格式
-    new_df['Updated_at'] = new_df['Updated_at'].dt.strftime('%Y-%m-%d %H:%M')
     
     date_string = date.today().strftime('%m%d')
     new_filename = "data/userdata" +"_" + date_string + '.csv'
