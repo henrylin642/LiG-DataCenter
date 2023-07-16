@@ -1,0 +1,15 @@
+altair==4.2.2
+pandas==1.4.1
+numpy==1.21.4
+scikit-learn==1.1.1
+streamlit==1.10.0
+plotly==5.4.0
+tqdm==4.62.3
+apyori==1.1.2
+lxml==4.9.0
+jieba==0.42.1
+requests==2.29.0
+google-analytics-data==0.17.0
+math
+datetime
+os
