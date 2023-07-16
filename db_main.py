@@ -152,17 +152,17 @@ def main():
         col1,col2,col3 = st.columns(3)
         with col1:
             st.write("今日昨日")
-            st.dataframe(table_daily_scans_dropzero.style.highlight_max(axis=0),use_container_width = True)
+            st.dataframe(table_daily_scans_dropzero.style.highlight_max(axis=0))
             #col1.write(table_daily_scans_dropzero.iloc[:2].transpose().sort_values(by='昨天',ascending=False))
 
         with col2:
             st.write("本週上週")
-            st.dataframe(table_weekly_scan_dropzero.style.highlight_max(axis=0),use_container_width = True)
+            st.dataframe(table_weekly_scan_dropzero.style.highlight_max(axis=0))
             #col2.write(table_weekly_scan_dropzero.iloc[:2].transpose().sort_values(by='上週',ascending=False))
 
         with col3:
             st.write("本月上月")
-            st.dataframe(table_monthly_scan_dropzero.style.highlight_max(axis=0),use_container_width = True)
+            st.dataframe(table_monthly_scan_dropzero.style.highlight_max(axis=0))
 
     #%%     
     st.markdown("<h4 style='text-align: center; background-color: #e6f2ff; padding: 10px;'>數據查詢平台</h4>", unsafe_allow_html=True)
