@@ -88,11 +88,11 @@ def main():
 
     if uploaded_file_scandata:
         # 構建要存儲的路徑
-        file_path = os.path.join("data", uploaded_file.name)
+        file_path = os.path.join("data", uploaded_file_scandata.name)
     
         # 儲存檔案
         with open(file_path, "wb") as file:
-            file.write(uploaded_file.getbuffer())
+            file.write(uploaded_file_scandata.getbuffer())
     
         # 提示成功儲存檔案
         st.sidebar.success("檔案已成功上傳並儲存。")
