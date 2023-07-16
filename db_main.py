@@ -86,7 +86,7 @@ def main():
     # 取得上傳的檔案
     uploaded_file_scandata = st.sidebar.file_uploader("上傳掃描數據", type="csv")
 
-    if uploaded_file:
+    if uploaded_file is not None:
         # 構建要存儲的路徑
         file_path = os.path.join("data", uploaded_file.name)
     
