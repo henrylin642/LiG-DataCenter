@@ -10,6 +10,5 @@ lxml==4.9.0
 jieba==0.42.1
 requests==2.29.0
 google-analytics-data==0.17.0
-math
 datetime
 os
