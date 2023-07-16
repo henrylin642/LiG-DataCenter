@@ -83,9 +83,19 @@ def main():
     #front
     st.sidebar.subheader('基礎數據上傳')
     
-    if st.sidebar.button("掃描資料上傳"):
-        file_path = "data/scandata.csv"
-        df_scan_updated = update_data(file_path)
+    # 取得上傳的檔案
+    uploaded_file_scandata = st.sidebar.file_uploader("上傳掃描數據", type="csv")
+
+    if uploaded_file:
+        # 構建要存儲的路徑
+        file_path = os.path.join("data", uploaded_file.name)
+    
+        # 儲存檔案
+        with open(file_path, "wb") as file:
+        file.write(uploaded_file.getbuffer())
+    
+        # 提示成功儲存檔案
+        st.sidebar.success("檔案已成功上傳並儲存。")
         
     with st.sidebar.expander("檔案資訊"):
         st.table(df_file)
