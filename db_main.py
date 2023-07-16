@@ -253,16 +253,10 @@ def main():
     col_click , col_raw = st.columns(2)
     with col_click:
         st.markdown("<h5 style='text-align: left; padding: 10px;'>物件點擊排行榜</h5>", unsafe_allow_html=True)
-        st.dataframe(
-            df_obj_click_scene,
-            use_container_width = True
-            )
+        st.dataframe(df_obj_click_scene)
     with col_raw:
         st.markdown("<h5 style='text-align: left; padding: 10px;'>Raw Data</h5>", unsafe_allow_html=True)
-        st.dataframe(
-            df_raw,
-            use_container_width = True
-            )
+        st.dataframe(df_raw)
 #%% Web App 測試 (檢視成果)      
 if __name__ == "__main__":
     main()
