@@ -231,13 +231,12 @@ def main():
     # fronted
     col_date_1,col_date_2 = st.columns([1,3])
     freq_choice = col_date_1.radio(label="選擇查詢週期",options=['日','週','月'],horizontal=True)         
-    range_num = col_date_2.slider(label="選擇欲查詢的日期範圍",max_value=10,min_value =1,step=1,value=7)
-    st.success(f"您選擇了【近{range_num}{freq_choice}】的區間查詢")  
+    range_num = col_date_2.slider(label="選擇欲查詢的日期範圍",max_value=10,min_value =1,step=1,value=7) 
     
     #%% 展示資料-坐標系掃描數據
     #backed
     table_scans,start_date,end_date = get_coor_scan_data(df_scan_coor_scene_city,select_coors,today,freq_choice,range_num)
-    
+    st.success(f"您選擇了【近{range_num}{freq_choice}】【{start_date}~{end_date}】的區間查詢") 
     #fronted
     st.markdown("<h5 style='text-align: left; padding: 10px;'>場域掃描數據</h5>", unsafe_allow_html=True)
     col_data1 , col_data2  = st.columns([1,2])
