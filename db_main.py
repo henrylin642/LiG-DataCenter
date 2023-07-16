@@ -92,7 +92,7 @@ def main():
     
         # 儲存檔案
         with open(file_path, "wb") as file:
-        file.write(uploaded_file.getbuffer())
+            file.write(uploaded_file.getbuffer())
     
         # 提示成功儲存檔案
         st.sidebar.success("檔案已成功上傳並儲存。")
