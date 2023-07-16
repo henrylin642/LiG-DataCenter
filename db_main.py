@@ -134,9 +134,9 @@ def main():
     st.write(table_city_scans)
     ##fronted:
     with st.expander("By 城市"):
-        st.dataframe(table_city_scans.sort_values(by='昨日',ascending=False).transpose().iloc[:2].style.highlight_max(axis=1),use_container_width = True)
-        st.dataframe(table_city_scans.sort_values(by='上週',ascending=False).transpose().iloc[2:4].style.highlight_max(axis=1),use_container_width = True)
-        st.dataframe(table_city_scans.sort_values(by='上月',ascending=False).transpose().iloc[4:6].style.highlight_max(axis=1),use_container_width = True)
+        st.dataframe(table_city_scans.sort_values(by='昨日',ascending=False).transpose().iloc[:2].style.highlight_max(axis=1))
+        st.dataframe(table_city_scans.sort_values(by='上週',ascending=False).transpose().iloc[2:4].style.highlight_max(axis=1))
+        st.dataframe(table_city_scans.sort_values(by='上月',ascending=False).transpose().iloc[4:6].style.highlight_max(axis=1))
     #%% 展示資料集-By專案
     ## backend
     coors_list = get_coor_list(df_scan_coor_scene_city)
