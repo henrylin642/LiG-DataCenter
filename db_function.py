@@ -127,6 +127,7 @@ def upload(df,selected_db,uploaded_file):
         df_origin = pd.read_csv(filename, encoding="utf-8-sig")
         # 取得最新更新日期
         origin_date = pd.to_datetime(os.path.getmtime(filename)).strftime('%Y-%m-%d %H:%M:%S')
+        st.sidebar.write(filename[4:],origin_date)
         return df_origin, filename ,origin_date
         
 def get_scan_data(df_light,df_coor,df_arobjs):
