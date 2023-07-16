@@ -115,21 +115,19 @@ def userdata_arrange(df):
 def upload(df,selected_db,uploaded_file):
     filename =  "data/" + df[df['db'] == selected_db]['filename'].values[0]
 
-    df_test = pd.read_csv(filename)
-
     if uploaded_file is not None:
         df_upload = pd.read_csv(uploaded_file, encoding="utf-8-sig")
+        upload_date = pd.to_datetime(os.path.getmtime(filename)).strftime('%Y-%m-%d %H:%M:%S')
         newfilename = uploaded_file.name
         df.loc[df['db'] == selected_db, 'filename'] = newfilename
         df.to_csv('data/df_file.csv', encoding='utf-8-sig', index = False )
         st.sidebar.success("uploaded succeed")
-        return df_upload
+        return df_upload, newfilename, upload_date
     else:
         df_origin = pd.read_csv(filename, encoding="utf-8-sig")
         # 取得最新更新日期
         origin_date = pd.to_datetime(os.path.getmtime(filename)).strftime('%Y-%m-%d %H:%M:%S')
-        df_origin['最新更新日期'] = origin_date
-        return df_origin
+        return df_origin, filename ,origin_date
         
 def get_scan_data(df_light,df_coor,df_arobjs):
     # 匯入掃描數據 Timestamp,lig_id,Tenant ID,SDK Instance ID,Decoder ID
