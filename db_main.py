@@ -131,7 +131,7 @@ def main():
     ## backed
     df_scan_coor_scene_city,df_coor_city,df_coor,df_arobjs = get_scan_data(df_light,df_coor,df_arobjs)
     table_city_scans = get_cities_data(df_scan_coor_scene_city,df_coor_city)
-    
+    st.write(table_city_scans)
     ##fronted:
     with st.expander("By 城市"):
         st.dataframe(table_city_scans.sort_values(by='昨日',ascending=False).transpose().iloc[:2].style.highlight_max(axis=1),use_container_width = True)
