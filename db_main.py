@@ -178,7 +178,9 @@ def main():
 
     ## fronted
     with st.expander("Raw Data"):
-        st.dataframe(df_scan_coor_scene_city[['scantime','lig_id','coor_name','city']].sort_values(by='scantime',ascending = False))
+        df_scan_coor_scene_city = df_scan_coor_scene_city[['scantime','lig_id','coor_name','city']].sort_values(by='scantime',ascending = False)
+        df_scan_coor_scene_city = df_scan_coor_scene_city.set_index('scantime')
+        st.dataframe(df_scan_coor_scene_city)
     
     #%%     
     st.markdown("<h4 style='text-align: center; background-color: #e6f2ff; padding: 10px;'>數據查詢平台</h4>", unsafe_allow_html=True)
