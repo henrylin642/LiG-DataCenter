@@ -155,13 +155,6 @@ def main():
     table_daily_scans_dropzero = get_daily_data(df_scan_coor_scene_city,yesterday,today,coors_list)
     table_weekly_scan_dropzero = get_weekly_date(df_scan_coor_scene_city,today,2,coors_list)
     table_monthly_scan_dropzero = get_monthly_date(df_scan_coor_scene_city,today,2,coors_list)
-    
-    #%% 展示 Raw data
-    ## backed
-
-    ## fronted
-    with st.expander("Raw Data"):
-        st.dataframe(df_scan_coor_scene_city.sort_values(by='scantime',ascending = False))
 
     ## frontend: download button
     with st.expander("By 專案"):
@@ -179,7 +172,14 @@ def main():
         with col3:
             st.write("本月上月")
             st.dataframe(table_monthly_scan_dropzero.style.highlight_max(axis=0))
+    
+    #%% 展示 Raw data
+    ## backed
 
+    ## fronted
+    with st.expander("Raw Data"):
+        st.dataframe(df_scan_coor_scene_city[['scantime','lig_id','coor_name']].sort_values(by='scantime',ascending = False))
+    
     #%%     
     st.markdown("<h4 style='text-align: center; background-color: #e6f2ff; padding: 10px;'>數據查詢平台</h4>", unsafe_allow_html=True)
         
