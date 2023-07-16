@@ -176,8 +176,7 @@ def main():
     select_coors = st.multiselect(
         label="選擇查詢場域(最多4個)",
         options=coors_list,
-        default=lastweek_max,
-        max_selections =4
+        default=lastweek_max
         )
     
     #%% 展示資料-coors包含的lig_id
