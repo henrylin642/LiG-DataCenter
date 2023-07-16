@@ -161,9 +161,8 @@ def get_scan_data(df_light,df_coor,df_arobjs):
 
 def get_reg_user_data(df_user):
     today,yesterday,this_week_start,this_week_end,last_week_start,last_week_end,this_month_start,this_month_end,last_month_start,last_month_end = get_date_data()
-    df_user = df_user.rename(columns={'id':'usr_id','Created_at':'usr_install_time','Updated_at':'usr_update_time'})
+    df_user = df_user.rename(columns={'id':'usr_id','Created_at':'usr_install_time'})
     df_user['usr_install_time'] = pd.to_datetime(df_user['usr_install_time'])
-    df_user['usr_update_time'] = pd.to_datetime(df_user['usr_update_time'])
     # 設定時間為index
     df_user = df_user.set_index('usr_install_time')
     
