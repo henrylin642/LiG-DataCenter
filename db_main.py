@@ -103,10 +103,10 @@ def main():
     # 在側邊欄顯示選擇框
     selected_db = st.sidebar.selectbox("選擇資料庫", df_file['db'])
     uploaded_file = st.sidebar.file_uploader(f"上傳數據", type="csv")
-    df_light = upload(df_file,"light",uploaded_file)
-    df_coor = upload(df_file,"coor",uploaded_file)
-    df_arobjs = upload(df_file,"arobjs",uploaded_file)
-    df_user = upload(df_file,"user",uploaded_file)
+    df_light,filename_light, upload_date_light = upload(df_file,"light",uploaded_file)
+    df_coor,filename_coor, upload_date_coor = upload(df_file,"coor",uploaded_file)
+    df_arobjs,filename_arobjs, upload_date_arobjs = upload(df_file,"arobjs",uploaded_file)
+    df_user,filename_user, upload_date_user = upload(df_file,"user",uploaded_file)
     df_user_converter = userdata_arrange(df_user)
     #get_scan_data(df_light,df_coor,df_arobjs)
 
