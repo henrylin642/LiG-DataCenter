@@ -126,7 +126,8 @@ def upload(df,selected_db,uploaded_file):
     else:
         df_origin = pd.read_csv(filename, encoding="utf-8-sig")
         # 取得最新更新日期
-        origin_date = pd.to_datetime(os.path.getmtime(filename)).strftime('%Y-%m-%d %H:%M:%S')
+        # origin_date = pd.to_datetime(os.path.getmtime(filename)).strftime('%Y-%m-%d %H:%M:%S')
+        origin_date = pd.to_datetime(os.stat(filename).st_mtime).strftime('%Y-%m-%d %H:%M:%S')
         st.sidebar.write(filename[4:],origin_date)
         return df_origin, filename ,origin_date
         
