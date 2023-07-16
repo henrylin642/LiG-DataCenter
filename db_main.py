@@ -156,7 +156,12 @@ def main():
     table_weekly_scan_dropzero = get_weekly_date(df_scan_coor_scene_city,today,2,coors_list)
     table_monthly_scan_dropzero = get_monthly_date(df_scan_coor_scene_city,today,2,coors_list)
     
+    #%% 展示 Raw data
+    ## backed
 
+    ## fronted
+    with st.expander("Raw Data"):
+        st.dataframe(df_scan_coor_scene_city.sort_values(by='scantime',ascending = False))
 
     ## frontend: download button
     with st.expander("By 專案"):
