@@ -97,7 +97,7 @@ def userdata_arrange(df):
         
     new_df = pd.DataFrame(rows)
     st.write(new_df)
-    new_df.columns = ['id', 'Email', 'Key', 'Secret', 'Fb_uid', 'Fb_token', 'Apple_uid', 'Apple_token', 'Reset_password', 'Remember_created_at', 'Created_at', 'Updated_at', 'Is_verified', 'Verify_code', 'Verify_time', 'Name', 'Birthday', 'Profile_picture', 'Is_visitor', 'Google_uid', 'Line_uid', 'App_code_number', 'Ref_uid', 'Role']
+    new_df.columns = ['id', 'Email', 'Created_at']
 
     # 将 'Created_at' 列转换为日期时间格式
     new_df['Created_at'] = pd.to_datetime(new_df['Created_at'], format='%Y年%m月%d日 %H:%M')
