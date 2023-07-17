@@ -61,29 +61,26 @@ st.sidebar.markdown(table_style,unsafe_allow_html=True)
 st.sidebar.markdown(expander_style,unsafe_allow_html=True)
 
 
-
+## ============================================================================= ##
 #%% 包成一整個 backend function: 主要資料處理及視覺化儀表板製
 
 def backend(scan_data:pd.DataFrame, data:dict):
     
-
-
-
-
     return
 
 #%% 頁面呈現
 def main():
     
-    
+    ## ============================================================================= ##
     #%% 【側邊欄】
     #backed
     df_file = pd.read_csv("data/df_file.csv",encoding="utf-8-sig")
 
     #front
     st.sidebar.subheader('基礎數據上傳')
-    
-    # 覆蓋github 之scandata ==============================================
+
+    ## ============================================================================= ##
+    # 覆蓋github 之scandata 
     #from github import Github
     
     # 取得個人訪問權杖
@@ -128,7 +125,7 @@ def main():
     #else:
         # 提示尚未上傳檔案
         #st.sidebar.info('請上傳檔案')
-        
+    ## ============================================================================= ##    
     with st.sidebar.expander("檔案資訊"):
         st.table(df_file)
         
@@ -148,11 +145,11 @@ def main():
         df_coor = upload(df_file,selected_db,uploaded_file) 
     elif selected_db == "arobjs":
         df_arobjs = upload(df_file,selected_db,uploaded_file)
-     
+    ## ============================================================================= ## 
     #%% 【主頁面】
     st.markdown("<h4 style='text-align: center; background-color: #e6f2ff; padding: 10px;'>全台基礎數據</h4>", unsafe_allow_html=True)
     
-    
+    ## ============================================================================= ##
     #%% 展示資料集-註冊人數
     ## backend
     count_user_today,count_user_yesterday,count_user_thisweek,count_user_lastweek,count_user_thismonth,count_user_lastmonth = get_reg_user_data(df_user_converter)
@@ -170,7 +167,7 @@ def main():
     with col_u_3:    
         st.write(f'本月註冊人數：{count_user_thismonth}')
         st.write(f'上月註冊人數：{count_user_lastmonth}')
-    
+    ## ============================================================================= ##
     #%% 展示資料集-By城市數據
     ## backed
     df_scan_coor_scene_city,df_coor_city,df_coor,df_arobjs = get_scan_data(df_light,df_coor,df_arobjs)
@@ -181,6 +178,8 @@ def main():
         st.dataframe(table_city_scans.sort_values(by='昨日',ascending=False).transpose().iloc[:2].style.highlight_max(axis=1))
         st.dataframe(table_city_scans.sort_values(by='上週',ascending=False).transpose().iloc[2:4].style.highlight_max(axis=1))
         st.dataframe(table_city_scans.sort_values(by='上月',ascending=False).transpose().iloc[4:6].style.highlight_max(axis=1))
+
+    ## ============================================================================= ##
     #%% 展示資料集-By專案
     ## backend
     coors_list = get_coor_list(df_scan_coor_scene_city)
@@ -205,7 +204,7 @@ def main():
         with col3:
             st.write("本月上月")
             st.dataframe(table_monthly_scan_dropzero.style.highlight_max(axis=0))
-    
+    ## ============================================================================= ##
     #%% 展示 Raw data
     ## backed
 
@@ -213,10 +212,10 @@ def main():
     with st.expander("Raw Data"):
         df_scan_coor_scene_city = df_scan_coor_scene_city[['scantime','lig_id','coor_name','city']].sort_values(by='scantime',ascending = False)
         st.dataframe(df_scan_coor_scene_city)
-    
+    ## ============================================================================= ##
     #%%     
     st.markdown("<h4 style='text-align: center; background-color: #e6f2ff; padding: 10px;'>數據查詢平台</h4>", unsafe_allow_html=True)
-        
+    ## ============================================================================= ##    
     #%% 資料篩選條件1-選擇坐標系
     #backed 
     # 找出上週掃描量最高的 coor_name
@@ -228,7 +227,7 @@ def main():
         options=coors_list,
         default=lastweek_max
         )
-    
+    ## ============================================================================= ##
     #%% 展示資料-coors包含的lig_id
     ## backed
     lig_ids = get_ids(df_scan_coor_scene_city,select_coors)
@@ -237,7 +236,7 @@ def main():
     ## fronted
     with st.expander("包含light id"):
         st.write(lig_ids_string)
-    
+    ## ============================================================================= ##
     #%% 展示資料-select coors包含的scenes
     ## backed
     scenes_list = get_scenes(df_coor,select_coors)
@@ -256,7 +255,7 @@ def main():
     ## fronted
     with st.expander("包含場景Scenes"):
         st.table(scene_list)
-    
+    ## ============================================================================= ##
     #%% 資料篩選條件1-選擇時間區間
     # backed
     
@@ -265,7 +264,7 @@ def main():
     col_date_1,col_date_2 = st.columns([1,3])
     freq_choice = col_date_1.radio(label="選擇查詢週期",options=['日','週','月'],horizontal=True)         
     range_num = col_date_2.slider(label="選擇欲查詢的日期範圍",max_value=10,min_value =1,step=1,value=7) 
-    
+    ## ============================================================================= ##
     #%% 展示資料-坐標系掃描數據
     #backed
     table_scans,start_date,end_date = get_coor_scan_data(df_scan_coor_scene_city,select_coors,today,freq_choice,range_num)
@@ -289,7 +288,7 @@ def main():
         
         st.plotly_chart(fig)
 
-
+    ## ============================================================================= ##
     #%% 展示資料-點擊排行榜、raw data
     #backed
     scenes_list = get_scenes(df_coor,select_coors)
