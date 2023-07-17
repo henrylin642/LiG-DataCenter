@@ -91,8 +91,8 @@ def main():
         file_path = os.path.join("data", uploaded_file_scandata.name)
         st.sidebar.write(file_path)
 
-        #刪除舊有檔桿（如果存在）
-        st.sidebar.write(os.path.exists(file_path))
+        # 刪除舊有檔桿（如果存在）
+        st.sidebar.write(os.path.exists(file_path))
         if os.path.exists(file_path):
             os.remove(file_path)
         st.sidebar.write(os.path.exists(file_path))        
