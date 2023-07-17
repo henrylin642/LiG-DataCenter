@@ -89,6 +89,7 @@ def main():
     if uploaded_file_scandata:
         # 構建要存儲的路徑
         file_path = os.path.join("data", uploaded_file_scandata.name)
+        st.sidebar.write(file_path)
 
         #刪除舊有檔桿（如果存在）
         if os.path.exists(file_path):
