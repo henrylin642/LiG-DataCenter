@@ -126,7 +126,7 @@ def main():
     count_user_today,count_user_yesterday,count_user_thisweek,count_user_lastweek,count_user_thismonth,count_user_lastmonth = get_reg_user_data(df_user_converter)
 
     ## fronted: count數據
-    st.markdown("<h6 style='text-align: left; padding: 10px;'>每日六點更新註冊數據</h6>", unsafe_allow_html=True)
+    st.markdown("<h6 style='text-align: left; padding: 10px;color: red'>每日六點更新註冊數據</h6>", unsafe_allow_html=True)
     col_u_1,col_u_2,col_u_3 = st.columns(3)
 
     with col_u_1:
