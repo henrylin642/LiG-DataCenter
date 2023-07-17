@@ -84,50 +84,50 @@ def main():
     st.sidebar.subheader('基礎數據上傳')
     
     # 覆蓋github 之scandata ==============================================
-    from github import Github
+    #from github import Github
     
     # 取得個人訪問權杖
-    access_token = "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"
+    #access_token = "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"
     
     # 建立 GitHub 物件
-    g = Github(access_token)
+    #g = Github(access_token)
     
     # 取得儲存庫名稱和檔案路徑
-    repository_name = 'henrylin642/LiG-DataCenter'
-    file_path = 'data/scandata.csv'
+    #repository_name = 'henrylin642/LiG-DataCenter'
+    #file_path = 'data/scandata.csv'
     
     # 讀取上傳的檔案
-    uploaded_file_scandata = st.sidebar.file_uploader("上傳掃描數據", type="csv")
+    #uploaded_file_scandata = st.sidebar.file_uploader("上傳掃描數據", type="csv")
     
     # 檢查是否上傳了檔案
-    if uploaded_file_scandata is not None:
+    #if uploaded_file_scandata is not None:
         # 取得檔案內容
-        file_content = uploaded_file_scandata.read()
+        #file_content = uploaded_file_scandata.read()
     
         # 取得要更新的檔案名稱
-        file_name = uploaded_file_scandata.name
+        #file_name = uploaded_file_scandata.name
     
         # 取得儲存庫
-        repository = g.get_repo(repository_name)
+        #repository = g.get_repo(repository_name)
     
         # 取得原有檔案的內容和 SHA 值
-        existing_file = repository.get_contents(file_path)
-        existing_content = existing_file.decoded_content.decode('utf-8')
-        sha = existing_file.sha
+        #existing_file = repository.get_contents(file_path)
+        #existing_content = existing_file.decoded_content.decode('utf-8')
+        #sha = existing_file.sha
     
         # 檢查檔案是否有變更
-        if file_content != existing_content:
+        #if file_content != existing_content:
             # 更新檔案內容
-            repository.update_file(file_path, 'Commit Message', file_content, sha)
+            #repository.update_file(file_path, 'Commit Message', file_content, sha)
     
             # 提示檔案已成功更新
-            st.sidebar.success('檔案已成功更新')
-        else:
+            #st.sidebar.success('檔案已成功更新')
+        #else:
             # 提示檔案無需更新
-            st.sidebar.warning('檔案無需更新')
-    else:
+            #st.sidebar.warning('檔案無需更新')
+    #else:
         # 提示尚未上傳檔案
-        st.sidebar.info('請上傳檔案')
+        #st.sidebar.info('請上傳檔案')
         
     with st.sidebar.expander("檔案資訊"):
         st.table(df_file)
