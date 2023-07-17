@@ -89,7 +89,11 @@ def main():
     if uploaded_file_scandata:
         # 構建要存儲的路徑
         file_path = os.path.join("data", uploaded_file_scandata.name)
-    
+
+        #刪除舊有檔桿（如果存在）
+        if os.path.exists(file_path):
+            os.remove(file_path)
+                
         # 儲存檔案
         with open(file_path, "wb") as file:
             file.write(uploaded_file_scandata.getbuffer())
