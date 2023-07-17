@@ -11,3 +11,4 @@ jieba==0.42.1
 requests==2.29.0
 google-analytics-data==0.17.0
 datetime
+github
