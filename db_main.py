@@ -84,16 +84,16 @@ def main():
     st.sidebar.subheader('基礎數據上傳')
     
     # 覆蓋github 之scandata ==============================================
-    from github import Github
+    #from github import Github
     
     # 取得個人訪問權杖
-    access_token = "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"
+    #access_token = "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"
     
     # 建立 GitHub 物件
-    g = Github(access_token)
+    #g = Github(access_token)
     
     # 取得儲存庫名稱和檔案路徑
-    repository_name = 'henrylin642/LiG-DataCenter'
+    #repository_name = 'henrylin642/LiG-DataCenter'
     file_path = 'data/scandata.csv'
     
     # 讀取上傳的檔案
