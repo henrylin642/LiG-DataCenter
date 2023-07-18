@@ -208,7 +208,7 @@ def main():
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
-        x=df_30day_trimmed.columns.transpose(),
+        x=df_30day_trimmed.columns,
         y=df_30day_trimmed.tail(1),
         name= "全台近30日掃描量圖",
     ))
@@ -238,8 +238,6 @@ def main():
     
     with st.expander("各專案近30日掃描量"):
         st.dataframe(df_30day)
-        st.write(df_30day_trimmed.tail(1))
-        st.write(df_30day_trimmed.columns)
     
     #%% 展示資料集-By城市數據  ============================================================================= ##
     ## backed
