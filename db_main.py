@@ -234,7 +234,7 @@ def main():
     df_30day = df_30day.reindex(columns=df_30day.columns[::-1])
     # 計算第三欄以後所有數據的平均值
     average_values = df_30day.iloc[:, 1:].mean(axis=1).round(1)
-    df_30day.insert(1, '平均值', average_values)
+    df_30day.insert(1, '平均值', average_values.round(1))
     
     with st.expander("各專案近30日掃描量"):
         st.dataframe(df_30day)
