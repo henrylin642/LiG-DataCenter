@@ -15,7 +15,6 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'data/ga_api.json'
 
 
 #%% 設定日期範圍
-@st.cache_data
 def get_date_data():
     today = date.today()
     yesterday = today - timedelta(days=1)
@@ -130,8 +129,7 @@ def upload(df,selected_db,uploaded_file):
         # origin_date = pd.to_datetime(os.path.getmtime(filename)).strftime('%Y-%m-%d %H:%M:%S')
         origin_date = pd.to_datetime(os.stat(filename).st_mtime).strftime('%Y-%m-%d %H:%M:%S')
         return df_origin, filename ,origin_date
-
-@st.cache_data        
+      
 def get_scan_data(df_light,df_coor,df_arobjs):
     # 匯入掃描數據 Timestamp,lig_id,Tenant ID,SDK Instance ID,Decoder ID
     df_scan = pd.read_csv("data/scandata.csv",encoding="utf=8-sig",usecols=['Timestamp','lig_id'])
@@ -390,7 +388,6 @@ def get_monthly_date(df,day1,monthnum,coors): #df_scan_coor_scene_city
     
     return table_monthly_scan_dropzero_T
 
-@st.cache_data
 def get_coor_scan_data(df,select_coors,day1,freq_choice,range_num): #df_scan_coor_scene_city
     if freq_choice == "日":
         date_range = pd.date_range(end=day1, freq="D", periods=range_num)
