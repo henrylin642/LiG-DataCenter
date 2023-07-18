@@ -205,6 +205,7 @@ def main():
     df_30day.loc['小計'] = sum_row
     ## fronted
     df_30day_trimmed = df_30day.iloc[:, :-1]  # 剔除最後一欄
+    
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
@@ -212,7 +213,6 @@ def main():
         y=df_30day_trimmed.iloc[:,-1],
         name= "全台近30日掃描量圖",
     ))
-    st.write(y)
     fig.update_layout(
         title={
         'text': "近30日掃描量",
@@ -240,6 +240,7 @@ def main():
     with st.expander("各專案近30日掃描量"):
         st.dataframe(df_30day)
         st.dataframe(df_30day_trimmed)
+        st.write(df_30day_trimmed.iloc[:,-1])
     
     #%% 展示資料集-By城市數據  ============================================================================= ##
     ## backed
