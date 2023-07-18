@@ -212,6 +212,7 @@ def main():
         y=df_30day_trimmed.iloc[:,-1],
         name= "全台近30日掃描量圖",
     ))
+    st.write(y)
     fig.update_layout(
         title={
         'text': "近30日掃描量",
