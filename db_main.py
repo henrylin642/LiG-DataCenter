@@ -238,7 +238,7 @@ def main():
     
     with st.expander("各專案近30日掃描量"):
         st.dataframe(df_30day)
-        st.write(df_30day_trimmed.tail(1))
+        st.write(df_30day_trimmed.tail(1).index)
         st.write(df_30day_trimmed.tail(1).columns)
     
     #%% 展示資料集-By城市數據  ============================================================================= ##
