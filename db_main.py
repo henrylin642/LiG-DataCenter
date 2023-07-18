@@ -149,6 +149,7 @@ def main():
     elif selected_db == "arobjs":
         df_arobjs = upload(df_file,selected_db,uploaded_file)
     #%%#【主頁面】 ============================================================================= ## 
+    st.write(f"今天日期：{today}")
     st.markdown("<h4 style='text-align: center; background-color: #e6f2ff; padding: 10px;'>全台基礎數據</h4>", unsafe_allow_html=True)
     
     ## ============================================================================= ##
