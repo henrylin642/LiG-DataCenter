@@ -208,7 +208,7 @@ def main():
 
     fig = go.Figure()
     fig.add_trace(go.Bar(
-        x=df_30day_trimmed.columns,
+        x=df_30day_trimmed.tail(1).columns,
         y=df_30day_trimmed.tail(1),
         name= "全台近30日掃描量圖",
     ))
