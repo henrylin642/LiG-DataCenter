@@ -209,7 +209,7 @@ def main():
     fig = go.Figure()
     fig.add_trace(go.Bar(
         x=df_30day_trimmed.columns,
-        y=df_30day_trimmed.iloc[0],
+        y=df_30day_trimmed.iloc[-1],
         name= "全台近30日掃描量圖",
     ))
     fig.update_layout(
@@ -238,7 +238,7 @@ def main():
     
     with st.expander("各專案近30日掃描量"):
         st.dataframe(df_30day)
-        st.write(df_30day_trimmed.iloc[0])
+        st.write(df_30day_trimmed.iloc[-1])
     
     #%% 展示資料集-By城市數據  ============================================================================= ##
     ## backed
