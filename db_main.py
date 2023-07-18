@@ -295,9 +295,9 @@ def main():
     ##fronted:
     with st.expander("By 城市"):
         st.plotly_chart(fig_ty)
-        st.divider()
+        #st.divider()
         st.plotly_chart(fig_week)
-        st.divider()
+        #st.divider()
         st.plotly_chart(fig_month)
 
     #%% 展示資料集-By專案  ============================================================================= ##
