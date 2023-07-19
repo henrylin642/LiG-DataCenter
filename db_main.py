@@ -459,12 +459,17 @@ def main():
     df_obj_click_scene = get_GA_data(df_arobjs,start_date,end_date,scenes_list)
     df_obj_click_scene = df_obj_click_scene.set_index('物件ID')
     df_raw = get_rawdata(df_scan_coor_scene_city,lig_ids,start_date,end_date)
-    
+    def save_cvs():
+        df_obj_click_scene.to_csv("click_data.csv", index=False)
+        st.success("CSV檔案已儲存“)
     #fronted
     col_click , col_raw = st.columns(2)
     with col_click:
         st.markdown("<h5 style='text-align: left; padding: 10px;'>物件點擊排行榜</h5>", unsafe_allow_html=True)
         st.dataframe(df_obj_click_scene)
+        if st.button(”儲存CSV檔案“):
+            save_cvs()
+    
     with col_raw:
         st.markdown("<h5 style='text-align: left; padding: 10px;'>Raw Data</h5>", unsafe_allow_html=True)
         st.dataframe(df_raw)
