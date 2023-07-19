@@ -543,6 +543,11 @@ def H24hour_scans(df,day,coors):
     table = pd.DataFrame(table_data).set_index('小時')
 
     return table
+
+def csv_download(df):
+    csv_download = df.to_csv().encode("utf-8")
+    return csv_download
+
 #%% 測試
 if __name__ == "__main__":
     print('測試')
