@@ -293,7 +293,7 @@ def main():
         df_scan_coor_scene_city = df_scan_coor_scene_city[['scantime','lig_id','coor_name','city']].sort_values(by='scantime',ascending = False)
         st.dataframe(
             data = df_scan_coor_scene_city,
-            use_container_width = True            
+            width = 1000           
             )
 
     #%%   ============================================================================= ##  
