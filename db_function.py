@@ -22,7 +22,8 @@ import pytz
 def get_date_data():
     # 設定時區為台灣時間
     taipei_timezone = pytz.timezone('Asia/Taipei')
-    today = date.today(taipei_timezone)
+    datetime_taipei = datetime.now(taipei_timezone)
+    today = datetime_taipei
     yesterday = today - timedelta(days=1)
     this_week_start = today - timedelta(days=today.weekday())
     this_week_end = this_week_start + timedelta(days=6)
