@@ -162,7 +162,7 @@ def main():
         st.markdown("<h12 style='text-align: left;color: red'>每日六點更新註冊數據</h12>", unsafe_allow_html=True)
         st.dataframe(
             data = df_userdata,
-            use_container_width = True
+            
             )
     with col_30day:
         st.plotly_chart(fig)
