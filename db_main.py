@@ -427,7 +427,7 @@ def main():
         st.markdown("<h5 style='text-align: left; padding: 10px;'>物件點擊排行榜</h5>", unsafe_allow_html=True)
         st.dataframe(
             data = df_obj_click_scene,
-            use_container_width = True
+            width = 5000
             )
         st.download_button(
          label = "下載物件點擊排行榜csv檔",
@@ -440,7 +440,7 @@ def main():
         st.markdown("<h5 style='text-align: left; padding: 10px;'>Raw Data</h5>", unsafe_allow_html=True)
         st.dataframe(
             data = df_raw,
-            use_container_width = True
+            width = 500
             )
     
         
