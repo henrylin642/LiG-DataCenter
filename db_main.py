@@ -160,7 +160,7 @@ def main():
     with col_user:
         st.markdown("<h6 style='text-align: left'>安裝人數統計：</h6>", unsafe_allow_html=True)
         st.markdown("<h12 style='text-align: left;color: red'>每日六點更新註冊數據</h12>", unsafe_allow_html=True)
-        st.dataframe(
+        st.table(
             data = df_userdata,
             
             )
