@@ -71,6 +71,7 @@ def backend():
 
 #%% 頁面呈現 ============================================================================= ##
 def main():
+    today,yesterday,this_week_start,this_week_end,last_week_start,last_week_end,this_month_start,this_month_end,last_month_start,last_month_end = get_date_data()
     df_file = pd.read_csv("data/df_file.csv",encoding="utf-8-sig")  # 檔案資訊
     df_light,filename_light, upload_date_light = upload(df_file,"light",None)  # id <==> coordinate
     df_coor,filename_coor, upload_date_coor = upload(df_file,"coor",None)  # coordinate <==> scenes
@@ -78,9 +79,7 @@ def main():
     df_user,filename_user, upload_date_user = upload(df_file,"user",None)
     df_user_converter = userdata_arrange(df_user)
     df_scan_coor_scene_city,df_coor_city,df_coor,df_arobjs = get_scan_data(df_light,df_coor,df_arobjs)
-    coors_list = get_coor_list(df_scan_coor_scene_city)
-    today,yesterday,this_week_start,this_week_end,last_week_start,last_week_end,this_month_start,this_month_end,last_month_start,last_month_end = get_date_data()
-
+    coors_list = get_coor_list(df_scan_coor_scene_city)    
     #%% 【側邊欄】 ============================================================================= ##
     #backed
     
