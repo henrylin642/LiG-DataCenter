@@ -437,9 +437,8 @@ def main():
     
     with col_raw:
         st.markdown("<h5 style='text-align: left; padding: 10px;'>Raw Data</h5>", unsafe_allow_html=True)
-        st.dataframe(
-            data = df_raw,
-            width = 500
+        st.table(
+            data = df_raw
             )
     
         
