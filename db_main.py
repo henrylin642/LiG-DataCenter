@@ -322,18 +322,21 @@ def main():
 
     #%% 展示資料-select coors包含的scenes  ============================================================================= ##
     ## backed
-    scenes_list = get_scenes(df_coor,select_coors)
-    scenes_list_sorted = sorted(scenes_list)
-    # 計算需要幾個columns
-    num_columns = 5
-    num_rows = math.ceil(len(scenes_list_sorted) / num_columns)
-    # 補足列表，使其元素數量為 num_columns 的倍數
-    padding = num_columns - (len(scenes_list_sorted) % num_columns)
-    scenes_list_sorted += [''] * padding
-    # 將列表轉換為2D列表
-    scenes_list_sorted_2d = np.array(scenes_list_sorted).reshape(num_rows, num_columns).tolist()
-    # 建立表格
-    scene_list = pd.DataFrame(scenes_list_sorted_2d)
+    if not select_coors.empty:
+        scenes_list = get_scenes(df_coor,select_coors)
+        scenes_list_sorted = sorted(scenes_list)
+        # 計算需要幾個columns
+        num_columns = 5
+        num_rows = math.ceil(len(scenes_list_sorted) / num_columns)
+        # 補足列表，使其元素數量為 num_columns 的倍數
+        padding = num_columns - (len(scenes_list_sorted) % num_columns)
+        scenes_list_sorted += [''] * padding
+        # 將列表轉換為2D列表
+        scenes_list_sorted_2d = np.array(scenes_list_sorted).reshape(num_rows, num_columns).tolist()
+        # 建立表格
+        scene_list = pd.DataFrame(scenes_list_sorted_2d)
+    else:
+        scene_list = pd.DataFrame()
     
     ## fronted
     with st.expander("包含場景Scenes"):
