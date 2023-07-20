@@ -282,7 +282,7 @@ def main():
     with st.expander("By 專案 (點擊欄位可排序)"):
         st.dataframe(
             data = df_project_sumary,
-            use_container_width = True            
+            width = 1000           
             )
  
     #%% 展示 Raw data  ============================================================================= ##
