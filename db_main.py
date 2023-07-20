@@ -322,7 +322,7 @@ def main():
 
     #%% 展示資料-select coors包含的scenes  ============================================================================= ##
     ## backed
-    if not select_coors.empty:
+    if len(select_coors) > 0:
         scenes_list = get_scenes(df_coor,select_coors)
         scenes_list_sorted = sorted(scenes_list)
         # 計算需要幾個columns
