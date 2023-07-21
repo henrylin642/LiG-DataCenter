@@ -80,7 +80,6 @@ def main():
     df_user_converter,domain_df = userdata_arrange(df_user)
     df_scan_coor_scene_city,df_coor_city,df_coor,df_arobjs = get_scan_data(df_light,df_coor,df_arobjs)
     coors_list = get_coor_list(df_scan_coor_scene_city)    
-    st.write(df_user_converter)
     #%% 【側邊欄】 ============================================================================= ##
     #backed
     
@@ -164,7 +163,7 @@ def main():
             width = 400
             )
         st.markdown("<h12 style='text-align: left;color: red'>每日六點更新註冊數據</h12>", unsafe_allow_html=True)
-        with st.expander("domain"):
+        with st.expander("user_domain"):
             st.dataframe(domain_df)
     with col_30day:
         st.plotly_chart(fig)
