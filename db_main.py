@@ -77,7 +77,7 @@ def main():
     df_coor,filename_coor, upload_date_coor = upload(df_file,"coor",None)  # coordinate <==> scenes
     df_arobjs,filename_arobjs, upload_date_arobjs = upload(df_file,"arobjs",None)
     df_user,filename_user, upload_date_user = upload(df_file,"user",None)
-    df_user_converter = userdata_arrange(df_user)
+    df_user_converter,domain_df = userdata_arrange(df_user)
     df_scan_coor_scene_city,df_coor_city,df_coor,df_arobjs = get_scan_data(df_light,df_coor,df_arobjs)
     coors_list = get_coor_list(df_scan_coor_scene_city)    
     st.write(df_user_converter)
@@ -164,6 +164,8 @@ def main():
             width = 400
             )
         st.markdown("<h12 style='text-align: left;color: red'>每日六點更新註冊數據</h12>", unsafe_allow_html=True)
+        st.expander("domain"):
+            st.dataframe(domain_df)
     with col_30day:
         st.plotly_chart(fig)
     
