@@ -127,8 +127,9 @@ def userdata_arrange(df):
     new_df_filter = new_df[con]
 
     new_df_filter['Email_domain'] = new_df_filter['Email'].str.split('@').str[1]
+    unique_domains = new_df_filter['Email_domain'].unique()
     
-    domain_df = pd.DataFrame(new_df_filter['Email_domain'].uniqure())
+    domain_df = pd.DataFrame({'Email_domain': unique_domains})
     st.write(domain_df)
     return new_df_unique
     
