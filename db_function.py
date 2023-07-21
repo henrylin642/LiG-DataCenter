@@ -111,12 +111,21 @@ def userdata_arrange(df):
 
     # 将日期时间格式转换为一般的时间字符串格式
     #new_df['Created_at'] = new_df['Created_at'].dt.strftime('%Y-%m-%d %H:%M')
+
+    # 將 'Email' 欄位的前 14 個字元取出並創建新的欄位 'Email_prefix'
+    new_df['Email_prefix'] = new_df['Email'].apply(lambda x: x[:14])
     
-    date_string = date.today().strftime('%m%d')
-    new_filename = "data/userdata" +"_" + date_string + '.csv'
-    new_df.to_csv(new_filename, index=False)
+    # 判斷 'Email_prefix' 是否有重複，若有重複則標記為重複值
+    new_df['Is_duplicate'] = new_df['Email_prefix'].duplicated()
     
-    return new_df
+    # 篩選出非重複的資料
+    new_df_unique = new_df[~new_df['Is_duplicate']]
+    
+    # 刪除額外的欄位 'Email_prefix' 和 'Is_duplicate'
+    new_df_unique = new_df_unique.drop(columns=['Email_prefix', 'Is_duplicate'])
+
+
+    return new_df_unique
     
     
 def upload(df,selected_db,uploaded_file):
