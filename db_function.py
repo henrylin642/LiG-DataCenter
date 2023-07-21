@@ -123,11 +123,12 @@ def userdata_arrange(df):
 
     # 將 'Email' 欄位的前 14 個字元取出並創建新的欄位 'visitor'取出
     new_df['Email_visitor'] = new_df['Email'].apply(lambda x: x[:7])
-    new_df['Is_visitor'] = new_df[new_df['Email_visitor'] == 'visitor']
+    con = new_df['Email_visitor'] != 'visitor'
+    new_df_filter = new_df[con]
 
-    new_df['Email_domain'] = new_df['Email'].str.split('@').str[1]
+    new_df_filter['Email_domain'] = new_df_filter['Email'].str.split('@').str[1]
     
-    domain_df = new_df[['Email_domain']].uniqure()
+    domain_df = new_df_filter[['Email_domain']].uniqure()
     st.write(domain_df)
     return new_df_unique
     
