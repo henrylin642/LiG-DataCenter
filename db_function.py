@@ -107,7 +107,7 @@ def userdata_arrange(df):
     new_df['Created_at'] = pd.to_datetime(new_df['Created_at'], format='%Y年%m月%d日 %H:%M')
 
     # 将日期时间格式转换为一般的时间字符串格式
-    #new_df['Created_at'] = new_df['Created_at'].dt.strftime('%Y-%m-%d %H:%M')
+    new_df['Created_at'] = new_df['Created_at'].dt.strftime('%Y-%m-%d %H:%M')
 
     # 將 'Email' 欄位的前 14 個字元取出並創建新的欄位 'Email_prefix'
     new_df['Email_prefix'] = new_df['Email'].apply(lambda x: x[:14])
