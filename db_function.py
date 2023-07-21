@@ -13,10 +13,7 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'data/ga_api.json'
 import pytz
 
 
-
-
 #%% 定義function區
-
 
 #%% 設定日期範圍
 def get_date_data():
