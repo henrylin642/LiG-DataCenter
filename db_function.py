@@ -130,8 +130,8 @@ def userdata_arrange(df):
     unique_domains = new_df_filter['Email_domain'].unique()
     
     domain_df = pd.DataFrame({'Email_domain': unique_domains})
-    st.write(domain_df)
-    return new_df_unique
+
+    return new_df_unique ,domain_df
     
     
 def upload(df,selected_db,uploaded_file):
