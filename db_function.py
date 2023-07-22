@@ -558,7 +558,7 @@ def H24hour_scans(df,day,coors):
     return table
 
 def csv_download(df):
-    csv_download = df.to_csv().encode("utf-8")
+    csv_download = df.to_csv().encode("utf-8-sig")
     return csv_download
 
 #%% 測試
