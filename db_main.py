@@ -385,7 +385,7 @@ def main():
         )
         start_date = selected_date
         end_date = selected_date
-        
+        csv_24hour = csv_download(df_24hours)
     else:
         range_num = col_date_2.slider(label="選擇欲查詢的日期範圍",max_value=10,min_value =1,step=1,value=7) 
         table_scans,start_date,end_date = get_coor_scan_data(df_scan_coor_scene_city,select_coors,today,freq_choice,range_num)
@@ -416,7 +416,7 @@ def main():
 
     if freq_choice == '小時':
         st.plotly_chart(fig_24hour)
-        csv_24hour = csv_download(df_table_scans)
+        
         st.download_button(
          label = "下載圖表數據csv檔",
          data = csv_24hour,
