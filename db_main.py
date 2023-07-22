@@ -152,7 +152,7 @@ def main():
     },
     xaxis_title="日期",
     yaxis_title="掃描量",
-    width=700,
+    width=1000,
     )
     fig.update_layout(xaxis={'type': 'category'})
     # frontend
