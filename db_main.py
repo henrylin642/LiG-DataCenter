@@ -379,7 +379,7 @@ def main():
             'x': 0.5,
             'xanchor': 'center'
         },
-        xaxis_title="日期",
+        xaxis_title="時間",
         yaxis_title="掃描量",
         width=1000,
         height=400
