@@ -156,7 +156,7 @@ def main():
     )
     fig.update_layout(xaxis={'type': 'category'})
     # frontend
-    col_30day ,buf, col_user = st.columns([4,1,2])
+    col_30day ,col_user = st.columns([4,1])
     with col_user:
         st.markdown("<h6 style='text-align: left'>安裝人數統計：</h6>", unsafe_allow_html=True)
         st.dataframe(
