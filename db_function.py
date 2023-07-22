@@ -111,18 +111,23 @@ def userdata_arrange(df):
 
     # 將 'Email' 欄位的前 14 個字元取出並創建新的欄位 'Email_prefix'
     new_df['Email_prefix'] = new_df['Email'].apply(lambda x: x[:14])
+    # 將 'Email' 欄位的前 14 個字元取出並創建新的欄位 'visitor'取出
+    new_df['Email_visitor'] = new_df['Email'].apply(lambda x: x[:7])
+    
+    new_df['IsVisitor'] =  new_df['Email_visitor'] == 'visitor'
+    
     
     # 判斷 'Email_prefix' 是否有重複，若有重複則標記為重複值
     new_df['Is_duplicate'] = new_df['Email_prefix'].duplicated()
-    
+
+       
     # 篩選出非重複的資料
     new_df_unique = new_df[~new_df['Is_duplicate']]
     
     # 刪除額外的欄位 'Email_prefix' 和 'Is_duplicate'
-    new_df_unique = new_df_unique.drop(columns=['Email_prefix', 'Is_duplicate'])
+    new_df_unique = new_df_unique.drop(columns=['Email_prefix', 'Is_duplicate','Email_visitor'])
 
-    # 將 'Email' 欄位的前 14 個字元取出並創建新的欄位 'visitor'取出
-    new_df['Email_visitor'] = new_df['Email'].apply(lambda x: x[:7])
+
     con = new_df['Email_visitor'] != 'visitor'
     new_df_filter = new_df[con]
 
@@ -427,7 +432,10 @@ def get_coor_scan_data(df,select_coors,day1,freq_choice,range_num): #df_scan_coo
         end_date = day1
         table_scans = pd.DataFrame(df_scans)
         table_scans = table_scans.set_index('Date')
-        return table_scans,start_date,end_date
+        con_1 = df['scantime'].dt.date >= start_date
+        con_2 = df['scantime'].dt.date <= end_date
+        df_rawfilter = df[con_1 & con_2]
+        return table_scans,start_date,end_date,df_rawfilter
 
     elif freq_choice =="週":
         date_range = pd.date_range(end=day1, freq="W-MON", periods=range_num)
@@ -455,7 +463,10 @@ def get_coor_scan_data(df,select_coors,day1,freq_choice,range_num): #df_scan_coo
         end_date = day1
         table_scans = pd.DataFrame(df_scans)
         table_scans = table_scans.set_index('Date')
-        return table_scans,start_date,end_date
+        con_1 = df['scantime'].dt.date >= start_date
+        con_2 = df['scantime'].dt.date <= end_date
+        df_rawfilter = df[con_1 & con_2]
+        return table_scans,start_date,end_date,df_rawfilter
         
     elif freq_choice == "月":
         date_range = pd.date_range(end=day1, freq="MS", periods=range_num)
@@ -482,7 +493,10 @@ def get_coor_scan_data(df,select_coors,day1,freq_choice,range_num): #df_scan_coo
         end_date = day1
         table_scans = pd.DataFrame(df_scans)
         table_scans = table_scans.set_index('Date')
-        return table_scans,start_date,end_date
+        con_1 = df['scantime'].dt.date >= start_date
+        con_2 = df['scantime'].dt.date <= end_date
+        df_rawfilter = df[con_1 & con_2]
+        return table_scans,start_date,end_date,df_rawfilter
 
 def get_GA_data(df_arobjs,start_date,end_date,scenes):
     date_range = {
@@ -555,7 +569,132 @@ def H24hour_scans(df,day,coors):
     # 建立最终表格
     table = pd.DataFrame(table_data).set_index('小時')
 
-    return table
+    return table,df_filter
+
+
+def protect_email(email):
+    if pd.notna(email) and '@' in email:
+        parts = email.split('@')
+        username = parts[0]
+        domain = parts[1]
+        protected_username = username[:len(username)-4] + "*" * 6 + username[-4:]
+        protected_email = protected_username + "@" + domain
+        return protected_email
+    else:
+        return email
+
+def H24hour_users(df,day):
+    
+    # 假設 df 是包含 'Email' 列的 DataFrame
+    df['Protected_Email'] = df['Email'].apply(protect_email)
+    df['Created_at'] = pd.to_datetime(df['Created_at'])
+    df_filter = df[df['Created_at'].dt.date==day]
+    
+    # 创建表格数据
+    table_data = {'小時': [],'註冊訪客':[]}
+
+    # 填入表格数据
+    for i in range(24):
+        # hour_str = f"{i:02d}:00"
+        table_data['小時'].append(i)
+        # 根据日期和小时筛选数据
+        filtered_data = df_filter[df_filter['Created_at'].dt.hour == i]
+        count = filtered_data.shape[0]  # 計算filtered_data的大小
+        table_data['註冊訪客'].append(count)
+    # 建立最终表格
+    table = pd.DataFrame(table_data).set_index('小時')
+    
+    # 建立最终表格
+    df_filter = df_filter[['id', 'Protected_Email', 'Created_at', 'IsVisitor']]
+    df_filter = df_filter.set_index('id')
+    return table,df_filter
+
+def get_user_data(df,day1,freq_choice,range_num): #df_scan_coor_scene_city
+    df['Created_at'] = pd.to_datetime(df['Created_at'])
+    df['Protected_Email'] = df['Email'].apply(protect_email)
+    if freq_choice == "日":
+        date_range = pd.date_range(end=day1, freq="D", periods=range_num)
+        new_idx = pd.DatetimeIndex([day1]).union(date_range)      
+        #建立表格
+        df_scans = {'Date':[],'用戶數':[]} 
+            
+        #填入數據
+        for i in range(len(new_idx)):
+            day0 = new_idx[i].date()
+            df_scans['Date'].append(day0)
+            con1= df['Created_at'].dt.date==day0
+            df_filter = df[con1]
+            count = df_filter.shape[0]  # 計算filtered_data的大小
+            df_scans['用戶數'].append(count)
+
+        start_date = new_idx[0].date()
+        end_date = day1
+        table_scans = pd.DataFrame(df_scans)
+        table_scans = table_scans.set_index('Date')
+        con_1 = df['Created_at'].dt.date >= start_date
+        con_2 = df['Created_at'].dt.date <= end_date
+        df_user_filter = df[con_1 & con_2]
+        
+        df_user_filter = df_user_filter[['id', 'Protected_Email', 'Created_at', 'IsVisitor']]
+        df_user_filter = df_user_filter.set_index('id')
+        return table_scans,start_date,end_date,df_user_filter
+
+    elif freq_choice =="週":
+        date_range = pd.date_range(end=day1, freq="W-MON", periods=range_num)
+        new_idx = pd.DatetimeIndex([day1]).union(date_range)
+        #建立表格
+        df_scans = {'Date':[],'用戶數':[]} 
+            
+        #填入數據
+        for i in range(len(new_idx)-1):
+            start = new_idx[i].date()
+            end = new_idx[i+1].date()
+            df_scans['Date'].append(start)
+            con1= df['Created_at'].dt.date>start
+            con2= df['Created_at'].dt.date<=end
+            df_filter = df[con1 & con2]
+            count = df_filter.shape[0]  # 計算filtered_data的大小
+            df_scans['用戶數'].append(count)
+
+        start_date = new_idx[0].date()
+        end_date = day1
+        table_scans = pd.DataFrame(df_scans)
+        table_scans = table_scans.set_index('Date')
+        con_1 = df['Created_at'].dt.date >= start_date
+        con_2 = df['Created_at'].dt.date <= end_date
+        df_user_filter = df[con_1 & con_2]
+        df_user_filter = df_user_filter[['id', 'Protected_Email', 'Created_at', 'IsVisitor']]
+        df_user_filter = df_user_filter.set_index('id')
+        return table_scans,start_date,end_date,df_user_filter
+        
+    elif freq_choice == "月":
+        date_range = pd.date_range(end=day1, freq="MS", periods=range_num)
+        new_idx = pd.DatetimeIndex([day1]).union(date_range)
+        #建立表格
+        df_scans = {'Date':[],'用戶數':[]} 
+            
+
+        #填入數據
+        for i in range(len(new_idx)):
+            start = new_idx[i].date()
+            df_scans['Date'].append(start)
+            con1 = df['Created_at'].apply(lambda x: x.strftime('%Y-%m')) == start.strftime('%Y-%m')
+            df_filter = df[con1]
+            count = df_filter.shape[0]  # 計算filtered_data的大小
+            df_scans['用戶數'].append(count)
+
+
+        start_date = new_idx[0].date()
+        end_date = day1
+        table_scans = pd.DataFrame(df_scans)
+        table_scans = table_scans.set_index('Date')
+        con_1 = df['Created_at'].dt.date >= start_date
+        con_2 = df['Created_at'].dt.date <= end_date
+        df_user_filter = df[con_1 & con_2]        
+        df_user_filter = df_user_filter[['id', 'Protected_Email', 'Created_at', 'IsVisitor']]
+        df_user_filter = df_user_filter.set_index('id')
+        return table_scans,start_date,end_date,df_user_filter
+
 
 def csv_download(df):
     csv_download = df.to_csv().encode("utf-8-sig")

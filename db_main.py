@@ -105,7 +105,6 @@ def main():
     #%%#【主頁面】 ============================================================================= ## 
     st.write(f"今天日期：{today}")
     st.markdown("<h4 style='text-align: center; background-color: #e6f2ff; padding: 10px;'>全台基礎數據</h4>", unsafe_allow_html=True)
-    
     ## ============================================================================= ##
     #%% 展示資料集-註冊人數  ============================================================================= ##
     ## backend
@@ -152,11 +151,11 @@ def main():
     },
     xaxis_title="日期",
     yaxis_title="掃描量",
-    width=1000,
+    width=800,
     )
     fig.update_layout(xaxis={'type': 'category'})
     # frontend
-    col_30day ,col_user = st.columns([4,1])
+    col_30day ,col_user = st.columns([5,1])
     with col_user:
         st.markdown("<h6 style='text-align: left'>安裝人數統計：</h6>", unsafe_allow_html=True)
         st.dataframe(
@@ -363,7 +362,7 @@ def main():
     if freq_choice == '小時':
         #selected_date = col_date_2.date_input(label='選擇欲查詢的日期',value = None) 
         selected_date = col_date_2.date_input(label='選擇欲查詢的日期',value = yesterday) 
-        df_24hours = H24hour_scans(df_scan_coor_scene_city,selected_date,select_coors)
+        df_24hours,df_rawfilter = H24hour_scans(df_scan_coor_scene_city,selected_date,select_coors)
         fig_24hour = go.Figure()
         for coor in select_coors:
             fig_24hour.add_trace(go.Bar(
@@ -376,7 +375,7 @@ def main():
 
         fig_24hour.update_layout(
             title={
-            'text': f"{select_coors_string}一日掃描量",
+            'text': f"「{select_coors_string}」{selected_date}當日掃描量",
             'x': 0.5,
             'xanchor': 'center'
         },
@@ -390,7 +389,7 @@ def main():
         csv_24hour = csv_download(df_24hours)
     else:
         range_num = col_date_2.slider(label="選擇欲查詢的日期範圍",max_value=10,min_value =1,step=1,value=7) 
-        table_scans,start_date,end_date = get_coor_scan_data(df_scan_coor_scene_city,select_coors,today,freq_choice,range_num)
+        table_scans,start_date,end_date,df_filter = get_coor_scan_data(df_scan_coor_scene_city,select_coors,today,freq_choice,range_num)
         fig_scan = go.Figure()
         for coor in select_coors:
             fig_scan.add_trace(
@@ -404,7 +403,7 @@ def main():
         fig_scan.update_layout(xaxis={'type': 'category'})
         fig_scan.update_layout(
             title={
-            'text': f"{select_coors_string}近{range_num}{freq_choice}掃描量",
+            'text': f"「{select_coors_string}」從{start_date}至{end_date}掃描量",
             'x': 0.5,
             'xanchor': 'center'
         },
@@ -440,30 +439,119 @@ def main():
     csv_scan_coor_scene_city = csv_download(df_obj_click_scene)
     
     #fronted
-    col_click , col_raw = st.columns(2)
-    with col_click:
-        st.markdown("<h5 style='text-align: left; padding: 10px;'>物件點擊排行榜</h5>", unsafe_allow_html=True)
-        st.table(
-            data = df_obj_click_scene,
-            )
+    #col_click , col_raw = st.columns(2)
+    with st.expander('點擊排行榜'):
+        #with col_click:
+        #st.markdown("<h5 style='text-align: left; padding: 10px;'>物件點擊排行榜</h5>", unsafe_allow_html=True)
         st.download_button(
          label = "下載物件點擊排行榜csv檔",
          data = csv_scan_coor_scene_city,
          file_name='點擊排行榜.csv',
          mime='text/csv',
          )
-    
-    with col_raw:
+        st.dataframe(
+            data = df_obj_click_scene,
+            )
+
+    with st.expander("場景掃描raw data"):
         st.markdown("<h5 style='text-align: left; padding: 10px;'>Raw Data</h5>", unsafe_allow_html=True)
-        st.table(
+        st.dataframe(
             data = df_raw
             )
     
+ #%%   ============================================================================= ##  
+    st.markdown("<h4 style='text-align: center; background-color: #e6f2ff; padding: 10px;'>註冊用戶查詢平台</h4>", unsafe_allow_html=True)
         
-    #%% df_light + city 資料維護 ============================================================================= ##
+    #%% 展示資料-坐標系掃描數據  ============================================================================= ##
+    #backed
+    col_userdate_1,col_userdate_2 = st.columns(2)
+    user_freq_choice = col_userdate_1.radio(
+                    label="選擇user查詢週期",
+                    options=('小時','日','週','月'),
+                    horizontal=True
+                    ) 
+    if user_freq_choice == '小時':
+        selected_date = col_userdate_2.date_input(label='選擇用戶註冊欲查詢的日期',value = yesterday) 
+        df_24hours,df_user_filter = H24hour_users(df_user_converter,selected_date)
+        fig_24hour = go.Figure()
+        fig_24hour.add_trace(go.Bar(
+            x=df_24hours.index,
+            y=df_24hours['註冊訪客'],
+            text=df_24hours['註冊訪客'],
+        ))
+        fig_24hour.update_layout(xaxis={'type': 'category'})
+    
+        fig_24hour.update_layout(
+            title={
+            'text': f"{selected_date}當日訪客註冊數統計",
+            'x': 0.5,
+            'xanchor': 'center'
+        },
+        xaxis_title="時間",
+        yaxis_title="註冊（訪客）數",
+        width=1000,
+        height=400
+        )
+        start_date = selected_date
+        end_date = selected_date
+        csv_24hour = csv_download(df_24hours)
+    else:
+        range_num = col_userdate_2.slider(label="選擇日期範圍",max_value=10,min_value =1,step=1,value=7) 
+        table_scans,start_date,end_date,df_user_filter = get_user_data(df_user_converter,today,user_freq_choice,range_num)
+        fig_scan = go.Figure()
+        for coor in select_coors:
+            fig_scan.add_trace(
+                go.Bar(
+                    x=table_scans.index,
+                    y=table_scans['用戶數'],
+                    text=table_scans['用戶數'],
+                    name= coor,
+                    ))
+        
+        fig_scan.update_layout(xaxis={'type': 'category'})
+        fig_scan.update_layout(
+            title={
+            'text': f"從{start_date}到{end_date}訪客用戶註冊數",
+            'x': 0.5,
+            'xanchor': 'center'
+        },
+        xaxis_title="日期",
+        yaxis_title="訪客註冊數",
+        width=1000,
+        height=400
+        )
+        
+        
+        
+    #fronted
+    st.markdown("<h5 style='text-align: left; padding: 10px;'>用戶(訪客)註冊數據</h5>", unsafe_allow_html=True)
+    
+    if user_freq_choice == '小時':
+        st.plotly_chart(fig_24hour)
+        
+        st.download_button(
+         label = "下載用戶註冊圖表數據csv檔",
+         data = csv_24hour,
+         file_name='點擊排行榜.csv',
+         mime='text/csv',
+         )
+    
+    else:
+        st.plotly_chart(fig_scan)
     
     
-    #fronted:
+    #%% 展示資料-點擊排行榜、raw data  ============================================================================= ##
+    #backed
+    df_raw = get_rawdata(df_scan_coor_scene_city,lig_ids,start_date,end_date)
+    
+    #fronted
+    #col_click , col_raw = st.columns(2)
+    
+    with st.expander("場景掃描raw data"):
+        st.markdown("<h5 style='text-align: left; padding: 10px;'>Raw Data</h5>", unsafe_allow_html=True)
+        st.dataframe(
+            data = df_user_filter
+            )
     
     
 #%% Web App 測試 (檢視成果)  ============================================================================= ##    
