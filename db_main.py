@@ -309,7 +309,8 @@ def main():
     select_coors = st.multiselect(
         label="選擇查詢場域 (最多可同時查詢4個)",
         options=coors_list,
-        default=lastweek_max
+        #default=lastweek_max
+        default="桃園展"
         )
     select_coors_string = ', '.join(map(str, select_coors))
     #%% 展示資料-coors包含的lig_id  ============================================================================= ##
@@ -359,7 +360,8 @@ def main():
                     horizontal=True
                     ) 
     if freq_choice == '小時':
-        selected_date = col_date_2.date_input(label='選擇欲查詢的日期',value = None) 
+        #selected_date = col_date_2.date_input(label='選擇欲查詢的日期',value = None) 
+        selected_date = col_date_2.date_input(label='選擇欲查詢的日期',value = yesterday) 
         df_24hours = H24hour_scans(df_scan_coor_scene_city,selected_date,select_coors)
         fig_24hour = go.Figure()
         for coor in select_coors:
