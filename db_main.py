@@ -368,6 +368,7 @@ def main():
             fig_24hour.add_trace(go.Bar(
                 x=df_24hours.index,
                 y=df_24hours[coor],
+                text=df_24hours[coor],
                 name= coor,
             ))
         fig_24hour.update_layout(xaxis={'type': 'category'})
