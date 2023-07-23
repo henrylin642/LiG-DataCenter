@@ -449,13 +449,13 @@ def main():
          file_name='點擊排行榜.csv',
          mime='text/csv',
          )
-        st.dataframe(
+        st.table(
             data = df_obj_click_scene,
             )
 
     with st.expander("場景掃描raw data"):
         st.markdown("<h5 style='text-align: left; padding: 10px;'>Raw Data</h5>", unsafe_allow_html=True)
-        st.dataframe(
+        st.table(
             data = df_raw
             )
     
@@ -549,7 +549,7 @@ def main():
     
     with st.expander("場景掃描raw data"):
         st.markdown("<h5 style='text-align: left; padding: 10px;'>Raw Data</h5>", unsafe_allow_html=True)
-        st.dataframe(
+        st.table(
             data = df_user_filter
             )
     
