@@ -499,15 +499,13 @@ def main():
         range_num = col_userdate_2.slider(label="選擇日期範圍",max_value=10,min_value =1,step=1,value=7) 
         table_scans,start_date,end_date,df_user_filter = get_user_data(df_user_converter,today,user_freq_choice,range_num)
         fig_scan = go.Figure()
-        for coor in select_coors:
-            fig_scan.add_trace(
-                go.Bar(
-                    x=table_scans.index,
-                    y=table_scans['用戶數'],
-                    text=table_scans['用戶數'],
-                    name= coor,
-                    ))
-        
+        fig_scan.add_trace(
+            go.Bar(
+                x=table_scans.index,
+                y=table_scans['用戶數'],
+                text=table_scans['用戶數'],
+                ))
+    
         fig_scan.update_layout(xaxis={'type': 'category'})
         fig_scan.update_layout(
             title={
