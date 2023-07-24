@@ -309,8 +309,7 @@ def main():
     select_coors = st.multiselect(
         label="選擇查詢場域 (最多可同時查詢4個)",
         options=coors_list,
-        #default=lastweek_max
-        default="桃園展"
+        default=lastweek_max
         )
     select_coors_string = ', '.join(map(str, select_coors))
     #%% 展示資料-coors包含的lig_id  ============================================================================= ##
