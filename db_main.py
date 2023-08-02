@@ -329,8 +329,12 @@ def main():
         # 計算需要幾個columns
         num_columns = 5
         num_rows = math.ceil(len(scenes_list_sorted) / num_columns)
+        remainder = len(scenes_list_sorted) % num_columns
         # 補足列表，使其元素數量為 num_columns 的倍數
-        padding = num_columns - (len(scenes_list_sorted) % num_columns)
+        if remainder == 0:
+            padding = 0
+        else:
+            padding = num_columns - (len(scenes_list_sorted) % num_columns)
         scenes_list_sorted += [''] * padding
         # 將列表轉換為2D列表
         scenes_list_sorted_2d = np.array(scenes_list_sorted).reshape(num_rows, num_columns).tolist()
