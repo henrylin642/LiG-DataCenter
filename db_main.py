@@ -359,7 +359,7 @@ def main():
     col_date_1,col_date_2 = st.columns(2)
     freq_choice = col_date_1.radio(
                     label="選擇查詢週期",
-                    options=('小時','日','週','月'),
+                    options=('日','週','月','小時'),
                     horizontal=True
                     ) 
     if freq_choice == '小時':
