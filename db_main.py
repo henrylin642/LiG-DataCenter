@@ -402,7 +402,7 @@ def main():
                     text=table_scans[coor],
                     name= coor,
                     ))
-        
+        fig_scan.update_layout(xaxis_tickformat='%m/%d')
         fig_scan.update_layout(xaxis={'type': 'category'})
         fig_scan.update_layout(
             title={
