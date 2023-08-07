@@ -394,6 +394,7 @@ def main():
         range_num = col_date_2.slider(label="選擇欲查詢的日期範圍",max_value=30,min_value =1,step=1,value=30) 
         table_scans,start_date,end_date,df_filter = get_coor_scan_data(df_scan_coor_scene_city,select_coors,today,freq_choice,range_num)
         table_scans.index = pd.to_datetime(table_scans.index)
+        table_scans.index = table_scans.index.strftime('%m/%d')
         fig_scan = go.Figure()
         for coor in select_coors:
             fig_scan.add_trace(
@@ -403,7 +404,6 @@ def main():
                     text=table_scans[coor],
                     name= coor,
                     ))
-        fig_scan.update_layout(xaxis_tickformat='%m/%d')
         fig_scan.update_layout(xaxis={'type': 'category'})
         fig_scan.update_layout(
             title={
