@@ -403,7 +403,7 @@ def main():
                     name= coor,
                     ))
         fig_scan.update_layout(xaxis_tickformat='%m/%d')
-        fig_scan.update_layout(xaxis={'type': 'category'})
+        #fig_scan.update_layout(xaxis={'type': 'category'})
         fig_scan.update_layout(
             title={
             'text': f"「{select_coors_string}」從{start_date}至{end_date}掃描量",
