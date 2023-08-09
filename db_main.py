@@ -80,6 +80,7 @@ def main():
     df_user_converter,domain_df = userdata_arrange(df_user)
     df_scan_coor_scene_city,df_coor_city,df_coor,df_arobjs = get_scan_data(df_light,df_coor,df_arobjs)
     coors_list = get_coor_list(df_scan_coor_scene_city)    
+    st.write(df_user_converter)
     #%% 【側邊欄】 ============================================================================= ##
     #backed
     
