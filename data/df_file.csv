@@ -3,5 +3,5 @@ scan,scandata.csv,
 light,light_2023-08-09_06h33m59.csv,id/location/coor_name
 coor,coordinate_system_2023-08-09_06h29m19.csv,coor_id/coor_name/create_time/scene_name
 coor_city,coor_city.csv,
-arobjs,ar_object_2023-08-09_06h32m21.csv,
+arobjs,ar_object_2023-08-09_06h32m21.csv,arj_id/obj_name/scene_name
 user,user_2023-08-12_07h26m44.csv,
