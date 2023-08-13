@@ -1,7 +1,7 @@
-db,filename
-scan,scandata.csv
-light,light_2023-08-09_06h33m59.csv
-coor,coordinate_system_2023-08-09_06h29m19.csv
-coor_city,coor_city.csv
-arobjs,ar_object_2023-08-09_06h32m21.csv
-user,user_2023-08-12_07h26m44.csv
+db,filename,content
+scan,scandata.csv,
+light,light_2023-08-09_06h33m59.csv,id/location/coor_name
+coor,coordinate_system_2023-08-09_06h29m19.csv,
+coor_city,coor_city.csv,
+arobjs,ar_object_2023-08-09_06h32m21.csv,
+user,user_2023-08-12_07h26m44.csv,
