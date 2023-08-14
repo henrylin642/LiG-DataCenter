@@ -11,6 +11,7 @@ from google.analytics.data import BetaAnalyticsDataClient
 from google.analytics.data_v1beta.types import RunReportRequest
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'data/ga_api.json'
 import pytz
+import base64
 
 
 #%% 定義function區
@@ -35,6 +36,34 @@ def get_date_data():
 #%% (I) 情境介紹與前處理 - 資料前處理:
 
 # 原資料整理
+
+def upload_file_to_github(file_path, commit_message):
+    access_token = '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'
+    owner = "henrylin642"
+    repo = "LiG-Datacenter"
+    headers = {
+            "Authorization": f"token {access_token}",
+            "Content-Type": "application/json",
+    }
+    
+    with open(file_path, 'rb') as file_content:
+        content = file_content.read()
+        content_base64 = base64.b64encode(content).decode('utf-8')  # 將 content 轉換成 Base64 格式
+        response = requests.put(
+            f'https://api.github.com/repos/{owner}/{repo}/contents/{file_path}',
+            headers=headers,
+            json={
+                "message": commit_message,
+                "content": content_base64,
+                "branch": "main",
+            }
+        )
+        #st.sidebar.write(response)
+        if response.status_code == 201:
+            return True
+        else:
+            return False
+
 
 def get_data(datetime_point):
     date = datetime_point
