@@ -7,7 +7,7 @@ pio.renderers.default='browser'
 import math
 import numpy as np
 import plotly.graph_objects as go
-from github import Github
+#from github import Github
 import base64
 from db_function import *
 
@@ -97,73 +97,73 @@ def main():
     
     
     # 在 sidebar 顯示檔案上傳區塊
-    with st.sidebar.expander("上傳新檔案"):
-        # 在 sidebar 中使用 selectbox 選擇需要上傳的 db
-        selected_db = st.selectbox("選擇需要上傳的 db", ['light', 'coor', 'arobjs', 'user'])
+    # with st.sidebar.expander("上傳新檔案"):
+    #     # 在 sidebar 中使用 selectbox 選擇需要上傳的 db
+    #     selected_db = st.selectbox("選擇需要上傳的 db", ['light', 'coor', 'arobjs', 'user'])
 
-        # 選擇要上傳的檔案
-        uploaded_file = st.file_uploader(f"上傳 {selected_db} 檔案", type="csv")
+    #     # 選擇要上傳的檔案
+    #     uploaded_file = st.file_uploader(f"上傳 {selected_db} 檔案", type="csv")
         
-        if uploaded_file is not None:
-            # 將上傳的檔案儲存到 data 資料夾
-            new_filename = f"data/{uploaded_file.name}"
-            with open(new_filename, "wb") as file:
-                file.write(uploaded_file.getbuffer())
+    #     if uploaded_file is not None:
+    #         # 將上傳的檔案儲存到 data 資料夾
+    #         new_filename = f"data/{uploaded_file.name}"
+    #         with open(new_filename, "wb") as file:
+    #             file.write(uploaded_file.getbuffer())
                 
-            # 上傳至 GitHub            
-            commit_message = "Upload new file"
+    #         # 上傳至 GitHub            
+    #         commit_message = "Upload new file"
             
-            if upload_file_to_github(new_filename, commit_message):
-                st.success("檔案上傳成功")
-            else:
-                st.error("檔案上傳失敗")
+    #         if upload_file_to_github(new_filename, commit_message):
+    #             st.success("檔案上傳成功")
+    #         else:
+    #             st.error("檔案上傳失敗")
             
-            # 更新 df_file.csv 中的相對應 db 及 filename
-            df_file.loc[df_file['db'] == selected_db, 'filename'] = uploaded_file.name
-            # 將更新後的 df_file 轉換為 CSV 格式的字串
-            df_file_csv_content = df_file.to_csv(index=False)           
-            # 將字串轉換為 bytes
-            df_file_csv_content_bytes = df_file_csv_content.encode()
-            # 將 bytes 轉換為 Base64 格式
-            df_file_csv_base64 = base64.b64encode(df_file_csv_content_bytes).decode()
-            # 使用 GitHub API 更新 df_file.csv
-            commit_message_df_file = "Update df_file.csv"
-            owner = "henrylin642"
-            repo = "LiG-Datacenter"
-            file_path = 'data/df_file.csv'            
-            # 先獲取目前 df_file.csv 在 GitHub 上的內容
-            headers = {
-                "Authorization": f"token {access_token}"
-            }
-            response_exsiting = requests.get(
-                f'https://api.github.com/repos/{owner}/{repo}/contents/{file_path}',
-                headers=headers
-                )  
-            st.write(response_exsiting)
-            if response_exsiting.status_code =="200":
-                existing_data = response.json()
-                existing_sha = existing_data['sha']            
-                data = {
-                    "message": commit_message_df_file,
-                    "content": df_file_csv_base64,
-                    "branch": "main",
-                    "sha": existing_sha  # 提供目前的 sha 值
-                }
+    #         # 更新 df_file.csv 中的相對應 db 及 filename
+    #         df_file.loc[df_file['db'] == selected_db, 'filename'] = uploaded_file.name
+    #         # 將更新後的 df_file 轉換為 CSV 格式的字串
+    #         df_file_csv_content = df_file.to_csv(index=False)           
+    #         # 將字串轉換為 bytes
+    #         df_file_csv_content_bytes = df_file_csv_content.encode()
+    #         # 將 bytes 轉換為 Base64 格式
+    #         df_file_csv_base64 = base64.b64encode(df_file_csv_content_bytes).decode()
+    #         # 使用 GitHub API 更新 df_file.csv
+    #         commit_message_df_file = "Update df_file.csv"
+    #         owner = "henrylin642"
+    #         repo = "LiG-Datacenter"
+    #         file_path = 'data/df_file.csv'            
+    #         # 先獲取目前 df_file.csv 在 GitHub 上的內容
+    #         headers = {
+    #             "Authorization": f"token {access_token}"
+    #         }
+    #         response_exsiting = requests.get(
+    #             f'https://api.github.com/repos/{owner}/{repo}/contents/{file_path}',
+    #             headers=headers
+    #             )  
+    #         st.write(response_exsiting)
+    #         if response_exsiting.status_code =="200":
+    #             existing_data = response.json()
+    #             existing_sha = existing_data['sha']            
+    #             data = {
+    #                 "message": commit_message_df_file,
+    #                 "content": df_file_csv_base64,
+    #                 "branch": "main",
+    #                 "sha": existing_sha  # 提供目前的 sha 值
+    #             }
 
-                response = requests.put(
-                    f'https://api.github.com/repos/{owner}/{repo}/contents/{file_path}',
-                    headers=headers,
-                    json=data
-                )   
-                # 檢查是否成功更新
-                st.write(response)
-                if response.status_code == 201:
-                    st.sidebar.success("df_file.csv 更新成功")
-                else:
-                    st.sidebar.error("df_file.csv 更新失敗")
+    #             response = requests.put(
+    #                 f'https://api.github.com/repos/{owner}/{repo}/contents/{file_path}',
+    #                 headers=headers,
+    #                 json=data
+    #             )   
+    #             # 檢查是否成功更新
+    #             st.write(response)
+    #             if response.status_code == 201:
+    #                 st.sidebar.success("df_file.csv 更新成功")
+    #             else:
+    #                 st.sidebar.error("df_file.csv 更新失敗")
             
-    # 顯示 df_file 內容
-    st.sidebar.table(df_file)
+    # # 顯示 df_file 內容
+    # st.sidebar.table(df_file)
             
     #%%#【主頁面】 ============================================================================= ## 
     st.write(f"今天日期：{today}")
