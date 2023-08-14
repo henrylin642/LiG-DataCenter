@@ -12,4 +12,6 @@ requests==2.29.0
 google-analytics-data==0.17.0
 pytz==2022.7
 PyGithub==1.59.0
+GitPython==3.1.31
+gitdb==4.0.10
 datetime
