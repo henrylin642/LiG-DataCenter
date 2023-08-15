@@ -12,6 +12,7 @@ import base64
 from db_function import *
 
 access_token = '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'
+
 st.set_page_config(
     page_title='光服務數據中心',
     layout='wide',
@@ -88,7 +89,7 @@ def main():
     #backed
     
     #front
-    st.sidebar.subheader('基礎數據上傳')
+    #st.sidebar.subheader('基礎數據上傳')
 
     #%%# ============================================================================= ##    
   
