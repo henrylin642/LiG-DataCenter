@@ -1,5 +1,4 @@
 #%% 匯入套件(包含我們寫好的function檔)
-
 import pandas as pd 
 import streamlit as st
 import plotly.io as pio
@@ -10,14 +9,12 @@ import plotly.graph_objects as go
 #from github import Github
 import base64
 from db_function import *
-
-
-
 st.set_page_config(
     page_title='光服務數據中心',
     layout='wide',
     initial_sidebar_state='collapsed'
     )
+#設定style
 st.markdown(
     """
     <style>
@@ -51,6 +48,7 @@ table {
     font-size: 9px;
 }
 </style>
+
 """
 expander_style = """
 <style>
@@ -68,9 +66,8 @@ st.sidebar.markdown(expander_style,unsafe_allow_html=True)
 
 #%% 包成一整個 backend function: 主要資料處理及視覺化儀表板製 ============================================================================= ##
 
-def backend():
-    
-    
+#在function處理了
+def backend():    
         return 
 
 #%% 頁面呈現 ============================================================================= ##
@@ -84,7 +81,8 @@ def main():
     df_user_converter,domain_df = userdata_arrange(df_user)
     df_scan_coor_scene_city,df_coor_city,df_coor,df_arobjs = get_scan_data(df_light,df_coor,df_arobjs)
     coors_list = get_coor_list(df_scan_coor_scene_city)    
-    #st.write(df_user_converter)
+    st.write(df_scan_coor_scene_city)
+    
     #%% 【側邊欄】 ============================================================================= ##
     #backed
     
