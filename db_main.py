@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 import base64
 from db_function import *
 
-access_token = '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'
+
 
 st.set_page_config(
     page_title='光服務數據中心',
