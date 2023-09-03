@@ -187,14 +187,14 @@ def main():
     
     day1 = today - timedelta(days=30)
     
-    if 'df_30day' not in st.session_state:
+    if "df_30day" not in st.session_state:
         df = get_daily_data(df_scan_coor_scene_city,day1,today,coors_list)        
         # 計算各列的總和
         sum_row = df.sum()        
         # 將總和新增到 DataFrame 的最後一列
         df.loc['小計'] = sum_row    
-        st.session_state.df_30day = df
-    df_30day = st.session_state.df_30day   
+        st.session_state['df_30day'] = df
+    df_30day = st.session_state['df_30day']   
     df_30day_trimmed = df_30day.iloc[:, :-1]  # 剔除最後一欄
 
     
