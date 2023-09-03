@@ -540,11 +540,12 @@ def get_GA_data(df_arobjs,start_date,end_date,scenes):
             return None
 
     client = BetaAnalyticsDataClient()
-    property_id='270740329'
+    #property_id='270740329'
+    property_id='396981930'
 
     request = RunReportRequest(property=f"properties/{property_id}")
     request.date_ranges.append(date_range)
-    request.dimensions.append({'name': 'customEvent:ID'})
+    request.dimensions.append({'name': 'customEvent:obj_id'})
     request.metrics.append({'name': 'eventCount'})
 
     response = client.run_report(request)
