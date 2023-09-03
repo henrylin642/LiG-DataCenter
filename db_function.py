@@ -9,7 +9,10 @@ pio.renderers.default = 'browser'
 import os
 from google.analytics.data import BetaAnalyticsDataClient
 from google.analytics.data_v1beta.types import RunReportRequest
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'data/ga_api.json'
+#os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'data/ga_api.json'
+# 設置 GOOGLE_APPLICATION_CREDENTIALS 環境變數
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
+
 import pytz
 import base64
 
