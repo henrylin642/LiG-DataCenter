@@ -12,17 +12,10 @@ from google.analytics.data import BetaAnalyticsDataClient
 from google.analytics.data_v1beta.types import RunReportRequest
 #os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'data/ga_api.json'
 
-# 從 Secrets 中獲取 Google Analytics 認證 JSON
+# 將 secrets.GA_API_JSON 的值轉換為 JSON 字串
 ga_json_secret = os.environ.get('GA_API_JSON')
-print(ga_json_secret)
-ga_credentials = json.loads(ga_json_secret)
-
-# 將認證 JSON 寫入到 ga_api.json 檔案中
-with open('ga_api.json', 'w') as f:
-    json.dump(ga_credentials, f)
-
-# 設置 GOOGLE_APPLICATION_CREDENTIALS 環境變數
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'ga_api.json'
+if ga_json_secret:
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = json.loads(ga_json_secret)
 
 # 進行 Google Analytics 認證和數據提取
 # 請注意，這種方法會將 Secrets 中的 JSON 寫入到本地的 ga_api.json 檔案中，然後將該檔案的路徑設置為 GOOGLE_APPLICATION_CREDENTIALS 環境變數。這樣你的 Python 腳本可以通過讀取該檔案來訪問 Google Analytics 認證。
