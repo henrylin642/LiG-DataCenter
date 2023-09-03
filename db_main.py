@@ -193,8 +193,8 @@ def main():
         sum_row = df.sum()        
         # 將總和新增到 DataFrame 的最後一列
         df.loc['小計'] = sum_row    
-        st.session_state['df_30day'] = df
-    df_30day = st.session_state['df_30day']    
+        st.session_state.df_30day = df
+    df_30day = st.session_state.df_30day   
     df_30day_trimmed = df_30day.iloc[:, :-1]  # 剔除最後一欄
 
     
