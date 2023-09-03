@@ -14,6 +14,7 @@ from google.analytics.data_v1beta.types import RunReportRequest
 
 # 從 Secrets 中獲取 Google Analytics 認證 JSON
 ga_json_secret = os.environ.get('GA_API_JSON')
+print(ga_json_secret)
 ga_credentials = json.loads(ga_json_secret)
 
 # 將認證 JSON 寫入到 ga_api.json 檔案中
