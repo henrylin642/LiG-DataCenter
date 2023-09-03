@@ -21,6 +21,6 @@ jobs:
           pip install -r requirements.txt
           
       - name: Run GA Data Extraction
-        run: python your_script.py
+        run: python db_main.py
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GA_API_JSON }}
