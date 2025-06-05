@@ -532,7 +532,11 @@ def get_id_list_from_file():
 
 def get_coordinates_list_from_server():
     data = fetch_data_from_server('api/v1/coordinate_systems', token_key="_lig_token").get('coordinate_systems',[])    
+<<<<<<< HEAD
     return [f'{item['id']}-{item['name']}' for item in data]
+=======
+    return [f"{item['id']}-{item['name']}" for item in data]
+>>>>>>> 0f276fbb (re-commit)
 
 #儲存 project_rank 資料的函數
 def save_project_rank():
