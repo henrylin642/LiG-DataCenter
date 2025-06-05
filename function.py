@@ -326,11 +326,9 @@ def normalize_click_lig(df: pd.DataFrame) -> pd.DataFrame:
             format="ISO8601",
             errors="coerce",
         )
-<<<<<<< HEAD
-        os.write(1, f"codenames: {df["codename"]}\n".encode())
-=======
+
         os.write(1, f"codenames: {df['codename']}\n".encode())
->>>>>>> 0f276fbb (re-commit)
+
         # last_click_time = df_click_lig["clicktime"].max()
         df["pj_code"] = df["codename"].astype(str).str[:2]
         df["user_id"] = df["codename"].astype(str).str[2:]
